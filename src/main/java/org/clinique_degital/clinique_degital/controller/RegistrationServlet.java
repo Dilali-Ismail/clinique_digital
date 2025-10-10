@@ -19,7 +19,6 @@ public class RegistrationServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(request,response);
     }
 
-
     public void doPost(HttpServletRequest request , HttpServletResponse response) throws ServletException , IOException{
         UserRegistrationDTO userRegistrationDTO = new UserRegistrationDTO();
 
