@@ -3,6 +3,7 @@ package org.clinique_degital.clinique_degital.repository;
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
+import org.clinique_degital.clinique_degital.model.Patient;
 import org.clinique_degital.clinique_degital.model.User;
 import org.clinique_degital.clinique_degital.util.JpaUtil;
 
@@ -11,12 +12,20 @@ import java.util.Optional;
 public class UserRepository {
 
 
-    public void save(User user){
+    public void save(Patient patient){
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        em.getTransaction().begin();
-        em.persist(user);
-        em.getTransaction().commit();
-        em.close();
+        try {
+
+            em.getTransaction().begin();
+            em.persist(patient);
+            em.getTransaction().commit();
+        }finally {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            em.close();
+        }
+
     }
 
     public Optional<User> findUserByEmail(String email){

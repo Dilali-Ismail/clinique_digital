@@ -2,10 +2,9 @@ package org.clinique_degital.clinique_degital.dto;
 
 import org.clinique_degital.clinique_degital.model.enums.Sang;
 
-import java.net.PasswordAuthentication;
-import java.sql.Date;
+import java.util.Date;
 
-public class UserRegistrationDTO {
+public class PatientRegistrationDTO {
 
     private String  nom;
     private String email ;
@@ -18,13 +17,16 @@ public class UserRegistrationDTO {
     private String password ;
 
 
-    public UserRegistrationDTO(){
+    public PatientRegistrationDTO(){
 
     }
-    public UserRegistrationDTO(String nom , String email , String password ){
+    public PatientRegistrationDTO(String nom , String email , String password , String adresse , String telephone , Sang sang ){
        this.nom = nom;
        this.email = email;
        this.password = password ;
+       this.adresse = adresse;
+       this.telephone = telephone;
+       this.sang = sang ;
     }
 
     public String getNom() {
@@ -49,5 +51,53 @@ public class UserRegistrationDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
+    }
+
+    public Date getNaissance() {
+        return naissance;
+    }
+
+    public void setNaissance(Date naissance) {
+        this.naissance = naissance;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public Sang getSang() {
+        return sang;
+    }
+
+    public void setSang(Sang sang) {
+        this.sang = sang;
     }
 }

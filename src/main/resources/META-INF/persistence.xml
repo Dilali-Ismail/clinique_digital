@@ -5,6 +5,8 @@
              version="3.1">
     <persistence-unit name="cliniquePU">
         <class>org.clinique_degital.clinique_degital.model.User</class>
+        <class>org.clinique_degital.clinique_degital.model.Patient</class>
+
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5433/CliniqueDB"/>

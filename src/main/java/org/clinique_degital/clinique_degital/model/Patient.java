@@ -3,12 +3,11 @@ package org.clinique_degital.clinique_degital.model;
 import jakarta.persistence.*;
 import org.clinique_degital.clinique_degital.model.enums.Sang;
 
-import java.sql.Date;
-import java.util.UUID;
+import java.util.Date;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "user_id")
-public class Petient extends User {
+public class Patient extends User {
 
     @Column(unique = true, length = 20)
     private String cin;
@@ -24,10 +23,56 @@ public class Petient extends User {
     @Column(length = 20)
     private String telephone;
 
-    @Column(length = 5)
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
     private Sang sang;
 
+    public String getCin() {
+        return cin;
+    }
 
+    public void setCin(String cin) {
+        this.cin = cin;
+    }
 
+    public Date getNaissance() {
+        return naissance;
+    }
 
+    public void setNaissance(Date naissance) {
+        this.naissance = naissance;
+    }
+
+    public String getSexe() {
+        return sexe;
+    }
+
+    public void setSexe(String sexe) {
+        this.sexe = sexe;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public Sang getSang() {
+        return sang;
+    }
+
+    public void setSang(Sang sang) {
+        this.sang = sang;
+    }
 }
+

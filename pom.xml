@@ -31,6 +31,8 @@
             <version>3.1.1</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- GARDEZ UNIQUEMENT CETTE DÉPENDANCE POUR JSTL -->
         <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
@@ -41,7 +43,7 @@
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>6.4.4.Final</version> <!-- Utiliser une version d'Hibernate compatible avec Java 17 -->
+            <version>6.4.4.Final</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
@@ -68,18 +70,6 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.servlet.jsp.jstl</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
-        <!-- JSTL Implementation -->
-        <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>jakarta.servlet.jsp.jstl</artifactId>
-            <version>3.0.1</version>
         </dependency>
     </dependencies>
 

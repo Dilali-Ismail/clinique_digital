@@ -1,33 +1,28 @@
 package org.clinique_degital.clinique_degital.service;
 
-import org.clinique_degital.clinique_degital.dto.UserRegistrationDTO;
+import org.clinique_degital.clinique_degital.dto.PatientRegistrationDTO;
 import org.clinique_degital.clinique_degital.mapper.UserMapper;
+import org.clinique_degital.clinique_degital.model.Patient;
 import org.clinique_degital.clinique_degital.model.User;
 import org.clinique_degital.clinique_degital.repository.UserRepository;
 import org.clinique_degital.clinique_degital.util.PasswordUtil;
 
-import javax.lang.model.element.NestingKind;
-import java.util.List;
+import java.security.PublicKey;
 import java.util.Optional;
 
 public class UserService {
 
     UserRepository userRepo = new UserRepository();
 
-    public void register (UserRegistrationDTO dto) throws Exception{
+    public void register (PatientRegistrationDTO dto) throws Exception{
 
-
-        Optional<User> userfind   = userRepo.findUserByEmail(dto.getEmail());
-
-        if(userfind.isPresent()){
-              throw new Exception();
+        if(userRepo.findUserByEmail(dto.getEmail()).isPresent()){
+            throw new Exception("Email deja exist");
         }
 
-        User user = UserMapper.fromdtoToEntity(dto);
-
-        user.setPassword(PasswordUtil.hashPassword(dto.getPassword()));
-
-        userRepo.save(user);
+        Patient patient = UserMapper.fromdtoToEntity(dto);
+        patient.setPassword(PasswordUtil.hashPassword(dto.getPassword()));
+        userRepo.save(patient);
 
     }
 

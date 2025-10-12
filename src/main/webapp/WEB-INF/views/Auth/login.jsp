@@ -176,7 +176,7 @@
                     </div>
                 </c:if>
 
-                <form action="<c:url value='/login'/>" method="post" class="space-y-6">
+                <form action="<%= request.getContextPath() %>/login" method="post" class="space-y-6">
                     <!-- Email Field -->
                     <div>
                         <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
