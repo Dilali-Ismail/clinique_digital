@@ -55,8 +55,12 @@ public class DepartmentRepository {
         EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
         try{
             entityManager.getTransaction().begin();
-            Optional<Department> departementopt = findbyid(id);
-            departementopt.ifPresent(entityManager::remove);
+            Department departmentToDelete = entityManager.find(Department.class, id);
+
+            if (departmentToDelete != null) {
+                entityManager.remove(departmentToDelete);
+            }
+
             entityManager.getTransaction().commit();
         }finally {
             entityManager.close();
