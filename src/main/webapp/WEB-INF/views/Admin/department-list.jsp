@@ -22,8 +22,8 @@
             <td><c:out value="${dept.nom}"/></td>
             <td><c:out value="${dept.description}"/></td>
             <td>
-                <a href="">Modifier</a> |
-                <a href="" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</a>
+                <a href="<c:url value='/admin/departments/edit?id=${dept.id}'/>">Modifier</a> |
+                <a href="<c:url value='/admin/departments/delete?id=${dept.id}'/>" onclick="return confirm('Êtes-vous sûr ?')">Supprimer</a>
             </td>
         </tr>
     </c:forEach>

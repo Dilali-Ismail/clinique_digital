@@ -6,6 +6,8 @@ import org.clinique_degital.clinique_degital.model.Department;
 import org.clinique_degital.clinique_degital.util.JpaUtil;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public class DepartmentRepository {
     public List<Department> findAll(){
@@ -26,6 +28,38 @@ public class DepartmentRepository {
         } finally {
             if (tx.isActive()) tx.rollback();
             em.close();
+        }
+    }
+    public Optional<Department> findbyid(UUID id){
+        EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try{
+            Department department = entityManager.find(Department.class,id);
+            return Optional.ofNullable(department);
+        }finally {
+            entityManager.close();
+        }
+    }
+
+    public void update(Department departement){
+        EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            entityManager.merge(departement);
+            entityManager.getTransaction().commit();
+        }finally {
+            entityManager.close();
+        }
+    }
+
+    public void delete(UUID id){
+        EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try{
+            entityManager.getTransaction().begin();
+            Optional<Department> departementopt = findbyid(id);
+            departementopt.ifPresent(entityManager::remove);
+            entityManager.getTransaction().commit();
+        }finally {
+            entityManager.close();
         }
     }
 
