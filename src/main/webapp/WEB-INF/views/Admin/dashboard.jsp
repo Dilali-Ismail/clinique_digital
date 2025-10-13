@@ -8,6 +8,9 @@
 <h1>Bienvenue sur l'Espace Administration, <c:out value="${sessionScope.user.nom}"/> !</h1>
 <p>Votre rôle : <strong>${sessionScope.user.role}</strong></p>
 
-<a href="<c:url value='/logout'/>">Se déconnecter</a>
+<li><a href="<c:url value ='/admin/departments/'/>">Gerer les Departements</a></li>
+
+<li><a href="<c:url value='/logout'/>">Se déconnecter</a></li>
+
 </body>
 </html>
