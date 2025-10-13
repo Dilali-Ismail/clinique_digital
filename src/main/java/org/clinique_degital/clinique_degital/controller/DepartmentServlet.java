@@ -23,14 +23,14 @@ public class DepartmentServlet extends HttpServlet {
         String action = req.getPathInfo();
         if(action == null || action.equals("/")) {
             List<DepartmentDTO> departments = service.allDeparetments();
-            req.setAttribute("departements", departments);
+            req.setAttribute("departments", departments);
             req.getRequestDispatcher("/WEB-INF/views/Admin/department-list.jsp").forward(req, resp);
         }else if(action.equals("/add")){
             req.getRequestDispatcher("/WEB-INF/views/Admin/department-form.jsp").forward(req, resp);
         }else if(action.equals("/edit")){
             UUID uuid = UUID.fromString(req.getParameter("id")) ;
             Optional<DepartmentDTO> department = service.findBydId(uuid);
-            department.ifPresent(DepartmentDTO -> req.setAttribute("departement",DepartmentDTO));
+            department.ifPresent(DepartmentDTO -> req.setAttribute("department",DepartmentDTO));
             req.getRequestDispatcher("/WEB-INF/views/Admin/department-form.jsp").forward(req, resp);
         }else if (action.equals("/delete")) {
             UUID id = UUID.fromString(req.getParameter("id"));
