@@ -85,13 +85,13 @@
         <div class="flex justify-between items-center">
             <div>
                 <h1 class="text-3xl font-bold text-gray-900">
-                    Gestion des <span class="gradient-text">Départements</span>
+                    Gestion des <span class="gradient-text"> Spécialités </span>
                 </h1>
-                <p class="text-gray-600 mt-1">Liste de tous vos départements</p>
+                <p class="text-gray-600 mt-1">Liste de tous vos spécialités</p>
             </div>
-            <a href="<c:url value='/admin/departments/add'/>" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition font-semibold">
+            <a href="<c:url value='/admin/specialities/add'/>" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition font-semibold">
                 <i class="fas fa-plus mr-2"></i>
-                Ajouter un Département
+                Ajouter une Spécialité
             </a>
         </div>
     </div>
@@ -101,26 +101,30 @@
         <table class="w-full">
             <thead class="gradient-bg text-white">
             <tr>
-                <th class="px-6 py-4 text-left font-semibold">Nom du Département</th>
-                <th class="px-6 py-4 text-left font-semibold">Description</th>
+                <th class="px-6 py-4 text-center font-semibold">Nom </th>
+                <th class="px-6 py-4 text-center font-semibold">Description</th>
+                <th class="px-6 py-4 text-center font-semibold">Departement</th>
                 <th class="px-6 py-4 text-center font-semibold">Actions</th>
             </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-            <c:forEach var="dept" items="${departments}">
+            <c:forEach var="sp" items="${specialitiesList}">
                 <tr class="table-row">
                     <td class="px-6 py-4">
-                        <p class="font-semibold text-gray-900"><c:out value="${dept.nom}"/></p>
+                        <p class="font-semibold text-gray-900"><c:out value="${sp.nom}"/></p>
                     </td>
                     <td class="px-6 py-4">
-                        <p class="text-gray-700"><c:out value="${not empty dept.description ? dept.description : 'Aucune description'}"/></p>
+                        <p class="text-gray-700"><c:out value="${not empty sp.description ? sp.description : 'Aucune description'}"/></p>
+                    </td>
+                    <td class="px-6 py-4">
+                        <p class="text-gray-700"><c:out value="${sp.departmentName}"/></p>
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex items-center justify-center space-x-2">
-                            <a href="<c:url value='/admin/departments/edit?id=${dept.id}'/>" class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-200 transition font-semibold">
+                            <a href="<c:url value='/admin/specialities/edit?id=${sp.id}'/>" class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-200 transition font-semibold">
                                 Modifier
                             </a>
-                            <a href="<c:url value='/admin/departments/delete?id=${dept.id}'/>" onclick="return confirm('Êtes-vous sûr ?')" class="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition font-semibold">
+                            <a href="<c:url value='/admin/specialities/delete?id=${sp.id}'/>" onclick="return confirm('Êtes-vous sûr ?')" class="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition font-semibold">
                                 Supprimer
                             </a>
                         </div>
@@ -128,12 +132,12 @@
                 </tr>
             </c:forEach>
 
-            <c:if test="${empty departments}">
+            <c:if test="${empty specialitiesList}">
                 <tr>
                     <td colspan="3" class="px-6 py-12 text-center">
-                        <p class="text-gray-500 mb-4">Aucun département trouvé</p>
-                        <a href="<c:url value='/admin/departments/add'/>" class="text-purple-600 font-semibold hover:underline">
-                            Ajouter un Département
+                        <p class="text-gray-500 mb-4">Aucune spécialité trouvé</p>
+                        <a href="<c:url value='/admin/specialities/add'/>" class="text-purple-600 font-semibold hover:underline">
+                            Ajouter une spécialité
                         </a>
                     </td>
                 </tr>
@@ -142,6 +146,5 @@
         </table>
     </div>
 </div>
-
 </body>
 </html>

@@ -79,6 +79,10 @@
             <i class="fas fa-user-injured w-5"></i>
             <span>Patients</span>
         </a>
+        <a href="<c:url value='/admin/specialities'/>" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl">
+            <i class="fas fa-user-injured w-5"></i>
+            <span>Specialitees</span>
+        </a>
         <a href="#" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl">
             <i class="fas fa-user-md w-5"></i>
             <span>Médecins</span>

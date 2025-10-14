@@ -15,8 +15,7 @@ public class DepartmentService {
     private final DepartmentRepository repository = new DepartmentRepository();
 
     public List<DepartmentDTO> allDeparetments(){
-        DepartmentRepository departmentRepository = new DepartmentRepository();
-      return  departmentRepository.findAll().stream().map(DepartmentMapper::toDto).collect(Collectors.toList());
+      return  repository.findAll().stream().map(DepartmentMapper::toDto).collect(Collectors.toList());
     }
 
     public void saveOrUpdate(DepartmentDTO dto) {

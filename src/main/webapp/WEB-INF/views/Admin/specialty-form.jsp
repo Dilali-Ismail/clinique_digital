@@ -6,7 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Départements | eSanté+</title>
+    <title>
+        <c:if test="${empty specialty}">Ajouter une spécialité</c:if>
+        <c:if test="${not empty specialty}">Modifier la spécialité</c:if>
+        | eSanté+
+    </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -19,8 +23,6 @@
         .nav-link { transition: all 0.2s ease; }
         .nav-link:hover { background: rgba(255, 255, 255, 0.15); transform: translateX(5px); }
         .nav-link.active { background: rgba(255, 255, 255, 0.2); }
-        .table-row { transition: all 0.2s ease; }
-        .table-row:hover { background: rgba(102, 126, 234, 0.05); }
     </style>
 </head>
 <body class="bg-gradient-to-br from-purple-50 via-white to-indigo-50 min-h-screen">
@@ -82,64 +84,87 @@
 <div class="ml-64 p-8">
     <!-- Header -->
     <div class="bg-white rounded-2xl shadow-lg p-6 mb-8 fade-in">
-        <div class="flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <a href="<c:url value='/admin/specialities'/>" class="text-gray-400 hover:text-purple-600 transition">
+                <i class="fas fa-arrow-left text-xl"></i>
+            </a>
             <div>
                 <h1 class="text-3xl font-bold text-gray-900">
-                    Gestion des <span class="gradient-text">Départements</span>
+                    <c:if test="${empty specialty}">
+                        Ajouter un <span class="gradient-text">Spécialité</span>
+                    </c:if>
+                    <c:if test="${not empty specialty}">
+                        Modifier le <span class="gradient-text">Spécialité</span>
+                    </c:if>
                 </h1>
-                <p class="text-gray-600 mt-1">Liste de tous vos départements</p>
+                <p class="text-gray-600 mt-1">Remplissez les informations du spécialité</p>
             </div>
-            <a href="<c:url value='/admin/departments/add'/>" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition font-semibold">
-                <i class="fas fa-plus mr-2"></i>
-                Ajouter un Département
-            </a>
         </div>
     </div>
 
-    <!-- Departments Table -->
-    <div class="bg-white rounded-2xl shadow-lg overflow-hidden fade-in">
-        <table class="w-full">
-            <thead class="gradient-bg text-white">
-            <tr>
-                <th class="px-6 py-4 text-left font-semibold">Nom du Département</th>
-                <th class="px-6 py-4 text-left font-semibold">Description</th>
-                <th class="px-6 py-4 text-center font-semibold">Actions</th>
-            </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100">
-            <c:forEach var="dept" items="${departments}">
-                <tr class="table-row">
-                    <td class="px-6 py-4">
-                        <p class="font-semibold text-gray-900"><c:out value="${dept.nom}"/></p>
-                    </td>
-                    <td class="px-6 py-4">
-                        <p class="text-gray-700"><c:out value="${not empty dept.description ? dept.description : 'Aucune description'}"/></p>
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="flex items-center justify-center space-x-2">
-                            <a href="<c:url value='/admin/departments/edit?id=${dept.id}'/>" class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-200 transition font-semibold">
-                                Modifier
-                            </a>
-                            <a href="<c:url value='/admin/departments/delete?id=${dept.id}'/>" onclick="return confirm('Êtes-vous sûr ?')" class="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition font-semibold">
-                                Supprimer
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </c:forEach>
-
-            <c:if test="${empty departments}">
-                <tr>
-                    <td colspan="3" class="px-6 py-12 text-center">
-                        <p class="text-gray-500 mb-4">Aucun département trouvé</p>
-                        <a href="<c:url value='/admin/departments/add'/>" class="text-purple-600 font-semibold hover:underline">
-                            Ajouter un Département
-                        </a>
-                    </td>
-                </tr>
+    <!-- Form -->
+    <div class="bg-white rounded-2xl shadow-lg p-8 fade-in max-w-2xl">
+        <form action="<c:url value='/admin/specialities'/>" method="post" class="space-y-6">
+            <!-- Champ caché pour l'ID en mode édition -->
+            <c:if test="${not empty specialty}">
+                <input type="hidden" name="id" value="${specialty.id}">
             </c:if>
-            </tbody>
-        </table>
+
+            <!-- Nom -->
+            <div>
+                <label for="nom" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-hospital text-purple-600 mr-2"></i>
+                    Nom du Spécialité
+                </label>
+                <input type="text"
+                       id="nom"
+                       name="nom"
+                       value="<c:out value='${specialty.nom}'/>"
+                       required
+                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-400 transition"
+                       placeholder="Ex: Cardiologie, Pédiatrie...">
+            </div>
+
+            <div>
+                <label for="departmentId" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-hospital text-purple-600 mr-2"></i>
+                    Département:
+                </label>
+                <select id="departmentId" name="departmentId" required>
+                <option value="">-- Choisir un département --</option>
+                <c:forEach var="dept" items="${departments}">
+                    <option value="${dept.id}" ${specialty.departmentId == dept.id ? 'selected' : ''}>
+                        <c:out value="${dept.nom}"/>
+                    </option>
+                </c:forEach>
+                </select>
+            </div>
+
+            <!-- Description -->
+            <div>
+                <label for="description" class="block text-sm font-semibold text-gray-700 mb-2">
+                    <i class="fas fa-file-alt text-purple-600 mr-2"></i>
+                    Description
+                </label>
+                <textarea id="description"
+                          name="description"
+                          rows="5"
+                          class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:border-purple-400 transition"
+                          placeholder="Décrivez le département..."><c:out value='${specialty.description}'/></textarea>
+            </div>
+
+            <!-- Buttons -->
+            <div class="flex items-center space-x-4 pt-4">
+                <button type="submit" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-8 py-3 rounded-xl hover:shadow-lg transition font-semibold">
+                    <i class="fas fa-save mr-2"></i>
+                    Enregistrer
+                </button>
+                <a href="<c:url value='/admin/specialities'/>" class="bg-gray-100 text-gray-700 px-8 py-3 rounded-xl hover:bg-gray-200 transition font-semibold">
+                    <i class="fas fa-times mr-2"></i>
+                    Annuler
+                </a>
+            </div>
+        </form>
     </div>
 </div>
 
