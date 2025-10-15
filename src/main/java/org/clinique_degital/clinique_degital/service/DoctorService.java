@@ -23,14 +23,13 @@ public class DoctorService {
     }
     public void saveOrUpdate(DoctorDTO dto) throws Exception {
 
-        if(dto.getId() != null && userRepository.findUserByEmail(dto.getEmail()).isPresent()){
-           throw new Exception("Email deja exist ") ;
-        }
-
         Specialty specialty = specialtyRepository.findByid(dto.getSpecialtyId()).orElseThrow(() -> new IllegalArgumentException("Spécialité invalide ID: " + dto.getSpecialtyId()));
 
         Doctor doctor = DoctorMapper.toEntity(dto, specialty);
         if(doctor.getId() == null){
+            if(dto.getId() != null && userRepository.findUserByEmail(dto.getEmail()).isPresent()){
+                throw new Exception("Email deja exist ") ;
+            }
             doctorRepository.save(doctor);
         }else{
            doctorRepository.update(doctor);

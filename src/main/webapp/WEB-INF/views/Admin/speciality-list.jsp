@@ -116,7 +116,7 @@
                     <td class="px-6 py-4">
                         <p class="text-gray-700"><c:out value="${not empty sp.description ? sp.description : 'Aucune description'}"/></p>
                     </td>
-                    <td class="px-6 py-4">
+                    <td class="px-6 py-4 ">
                         <p class="text-gray-700"><c:out value="${sp.departmentName}"/></p>
                     </td>
                     <td class="px-6 py-4">
