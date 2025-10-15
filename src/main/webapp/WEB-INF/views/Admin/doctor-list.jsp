@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion des Départements | eSanté+</title>
+    <title>Gestion des Médecins | eSanté+</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -44,16 +44,16 @@
             <span>Patients</span>
         </a>
         <a href="<c:url value='/admin/specialities'/>" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl">
-            <i class="fas fa-user-injured w-5"></i>
-            <span>Specialitees</span>
+            <i class="fas fa-stethoscope w-5"></i>
+            <span>Spécialités</span>
         </a>
-        <a href="<c:url value='/admin/doctors'/>" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl">
+        <a href="<c:url value='/admin/doctors'/>" class="nav-link active flex items-center space-x-3 px-4 py-3 rounded-xl">
             <i class="fas fa-user-md w-5"></i>
-            <span>Médecins</span>
+            <span class="font-semibold">Médecins</span>
         </a>
-        <a href="<c:url value='/admin/departments'/>" class="nav-link active flex items-center space-x-3 px-4 py-3 rounded-xl">
+        <a href="<c:url value='/admin/departments'/>" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-xl">
             <i class="fas fa-hospital w-5"></i>
-            <span class="font-semibold">Départements</span>
+            <span>Départements</span>
         </a>
     </nav>
 
@@ -85,46 +85,56 @@
         <div class="flex justify-between items-center">
             <div>
                 <h1 class="text-3xl font-bold text-gray-900">
-                    Gestion des <span class="gradient-text"> Spécialités </span>
+                    Gestion des <span class="gradient-text">Médecins</span>
                 </h1>
-                <p class="text-gray-600 mt-1">Liste de tous vos spécialités</p>
+                <p class="text-gray-600 mt-1">Liste de tous vos médecins</p>
             </div>
-            <a href="<c:url value='/admin/specialities/add'/>" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition font-semibold">
+            <a href="<c:url value='/admin/doctors/add'/>" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition font-semibold">
                 <i class="fas fa-plus mr-2"></i>
-                Ajouter une Spécialité
+                Ajouter un Médecin
             </a>
         </div>
     </div>
 
-    <!-- Departments Table -->
+    <!-- Doctors Table -->
     <div class="bg-white rounded-2xl shadow-lg overflow-hidden fade-in">
         <table class="w-full">
             <thead class="gradient-bg text-white">
             <tr>
-                <th class="px-6 py-4 text-center font-semibold">Nom </th>
-                <th class="px-6 py-4 text-center font-semibold">Description</th>
-                <th class="px-6 py-4 text-center font-semibold">Departement</th>
+                <th class="px-6 py-4 text-left font-semibold">Nom</th>
+                <th class="px-6 py-4 text-left font-semibold">Email</th>
+                <th class="px-6 py-4 text-left font-semibold">Titre</th>
+                <th class="px-6 py-4 text-left font-semibold">Matricule</th>
+                <th class="px-6 py-4 text-left font-semibold">Spécialité</th>
                 <th class="px-6 py-4 text-center font-semibold">Actions</th>
             </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-            <c:forEach var="sp" items="${specialitiesList}">
+            <c:forEach var="doctor" items="${doctors}">
                 <tr class="table-row">
                     <td class="px-6 py-4">
-                        <p class="font-semibold text-gray-900"><c:out value="${sp.nom}"/></p>
+                        <p class="font-semibold text-gray-900"><c:out value="${doctor.nom}"/></p>
                     </td>
                     <td class="px-6 py-4">
-                        <p class="text-gray-700"><c:out value="${not empty sp.description ? sp.description : 'Aucune description'}"/></p>
+                        <p class="text-gray-700"><c:out value="${doctor.email}"/></p>
                     </td>
                     <td class="px-6 py-4">
-                        <p class="text-gray-700"><c:out value="${sp.departmentName}"/></p>
+                        <p class="text-gray-700"><c:out value="${doctor.titre}"/></p>
+                    </td>
+                    <td class="px-6 py-4">
+                        <p class="text-gray-700"><c:out value="${doctor.matricule}"/></p>
+                    </td>
+                    <td class="px-6 py-4">
+                            <span class="inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded-lg text-sm font-semibold">
+                                <c:out value="${doctor.specialtyName}"/>
+                            </span>
                     </td>
                     <td class="px-6 py-4">
                         <div class="flex items-center justify-center space-x-2">
-                            <a href="<c:url value='/admin/specialities/edit?id=${sp.id}'/>" class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-200 transition font-semibold">
+                            <a href="<c:url value='/admin/doctors/edit?id=${doctor.id}'/>" class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-200 transition font-semibold">
                                 Modifier
                             </a>
-                            <a href="<c:url value='/admin/specialities/delete?id=${sp.id}'/>" onclick="return confirm('Êtes-vous sûr ?')" class="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition font-semibold">
+                            <a href="<c:url value='/admin/doctors/delete?id=${doctor.id}'/>" onclick="return confirm('Êtes-vous sûr ?')" class="bg-red-100 text-red-600 px-4 py-2 rounded-lg hover:bg-red-200 transition font-semibold">
                                 Supprimer
                             </a>
                         </div>
@@ -132,12 +142,12 @@
                 </tr>
             </c:forEach>
 
-            <c:if test="${empty specialitiesList}">
+            <c:if test="${empty doctors}">
                 <tr>
-                    <td colspan="3" class="px-6 py-12 text-center">
-                        <p class="text-gray-500 mb-4">Aucune spécialité trouvé</p>
-                        <a href="<c:url value='/admin/specialities/add'/>" class="text-purple-600 font-semibold hover:underline">
-                            Ajouter une spécialité
+                    <td colspan="6" class="px-6 py-12 text-center">
+                        <p class="text-gray-500 mb-4">Aucun médecin trouvé</p>
+                        <a href="<c:url value='/admin/doctors/add'/>" class="text-purple-600 font-semibold hover:underline">
+                            Ajouter un médecin
                         </a>
                     </td>
                 </tr>
@@ -146,5 +156,6 @@
         </table>
     </div>
 </div>
+
 </body>
 </html>

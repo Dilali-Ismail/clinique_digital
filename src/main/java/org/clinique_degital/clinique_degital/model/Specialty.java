@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "specialties")
-public class Speciality {
+public class Specialty {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -17,7 +17,7 @@ public class Speciality {
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 
-    public Speciality() {}
+    public Specialty() {}
 
     public UUID getId() {
         return id;

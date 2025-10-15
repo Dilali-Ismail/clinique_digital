@@ -1,18 +1,15 @@
 package org.clinique_degital.clinique_degital.service;
 
-import org.clinique_degital.clinique_degital.dto.DepartmentDTO;
 import org.clinique_degital.clinique_degital.dto.SpecialtyDTO;
-import org.clinique_degital.clinique_degital.mapper.DepartmentMapper;
 import org.clinique_degital.clinique_degital.mapper.SpecialityMapper;
 import org.clinique_degital.clinique_degital.model.Department;
-import org.clinique_degital.clinique_degital.model.Speciality;
+import org.clinique_degital.clinique_degital.model.Specialty;
 import org.clinique_degital.clinique_degital.repository.DepartmentRepository;
 import org.clinique_degital.clinique_degital.repository.SpecialtyRepository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class SpecialityService {
@@ -26,12 +23,12 @@ public class SpecialityService {
 
     public void SaveOrUpdate(SpecialtyDTO specialitydto){
         Department department = departmentRepository.findbyid(specialitydto.getDepartmentId()).orElseThrow(() -> new IllegalArgumentException("Département invalide ID: " + specialitydto.getDepartmentId()));
-        Speciality speciality = SpecialityMapper.toEntity(specialitydto,department);
+        Specialty specialty = SpecialityMapper.toEntity(specialitydto,department);
 
-        if(speciality.getId() == null){
-            specialtyRepository.save(speciality);
+        if(specialty.getId() == null){
+            specialtyRepository.save(specialty);
         }else{
-            specialtyRepository.update(speciality);
+            specialtyRepository.update(specialty);
         }
     }
     public Optional<SpecialtyDTO> findBydId(UUID id){

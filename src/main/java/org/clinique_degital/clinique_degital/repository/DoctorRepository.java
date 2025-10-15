@@ -2,6 +2,7 @@ package org.clinique_degital.clinique_degital.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import org.clinique_degital.clinique_degital.model.Doctor;
 import org.clinique_degital.clinique_degital.model.Specialty;
 import org.clinique_degital.clinique_degital.util.JpaUtil;
 
@@ -9,22 +10,21 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class SpecialtyRepository {
-    public List<Specialty> findAll() {
+public class DoctorRepository {
+    public List<Doctor> findAll(){
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        try {
-            return em.createQuery("SELECT s FROM Specialty s LEFT JOIN FETCH s.department ORDER BY s.nom", Specialty.class).getResultList();
-        } finally {
+        try{
+          return  em.createQuery("SELECT d from Doctor d LEFT JOIN FETCH d.specialty ORDER BY d.nom").getResultList();
+        }finally {
             em.close();
         }
     }
-
-    public void save(Specialty specialty) {
+    public void save(Doctor doctor) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.persist(specialty);
+            em.persist(doctor);
             tx.commit();
         } finally {
             if (tx.isActive()) tx.rollback();
@@ -32,12 +32,12 @@ public class SpecialtyRepository {
         }
     }
 
-    public void update(Specialty specialty) {
+    public void update(Doctor doctor) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
-            em.merge(specialty);
+            em.merge(doctor);
             tx.commit();
         } finally {
             if (tx.isActive()) tx.rollback();
@@ -45,15 +45,14 @@ public class SpecialtyRepository {
         }
     }
 
-    public Optional<Specialty> findByid(UUID id){
+    public Optional<Doctor> findByid(UUID id){
         EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
         try{
-            Specialty specialty = entityManager.createQuery(
-                            "SELECT s FROM Specialty s LEFT JOIN FETCH s.department WHERE s.id = :id",
-                            Specialty.class)
-                    .setParameter("id", id)
-                    .getSingleResult();
-           return Optional.of(specialty);
+            Doctor doctor = entityManager.createQuery(
+                            "SELECT d FROM Doctor d LEFT JOIN FETCH d.specialty WHERE d.id = :id",
+                            Doctor.class)
+                    .setParameter("id", id).getSingleResult();
+            return Optional.of(doctor);
         }finally {
             entityManager.close();
         }
@@ -63,10 +62,10 @@ public class SpecialtyRepository {
         EntityManager entityManager = JpaUtil.getEntityManagerFactory().createEntityManager();
         try{
             entityManager.getTransaction().begin();
-            Specialty specialtyToDelete = entityManager.find(Specialty.class, id);
+            Doctor specialityToDelete = entityManager.find(Doctor.class, id);
 
-            if (specialtyToDelete != null) {
-                entityManager.remove(specialtyToDelete);
+            if (specialityToDelete != null) {
+                entityManager.remove(specialityToDelete);
             }
 
             entityManager.getTransaction().commit();
@@ -74,4 +73,7 @@ public class SpecialtyRepository {
             entityManager.close();
         }
     }
+
+
+
 }

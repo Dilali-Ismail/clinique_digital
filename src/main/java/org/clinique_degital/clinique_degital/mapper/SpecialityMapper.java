@@ -2,11 +2,11 @@ package org.clinique_degital.clinique_degital.mapper;
 
 import org.clinique_degital.clinique_degital.dto.SpecialtyDTO;
 import org.clinique_degital.clinique_degital.model.Department;
-import org.clinique_degital.clinique_degital.model.Speciality;
+import org.clinique_degital.clinique_degital.model.Specialty;
 
 public class SpecialityMapper {
 
-    public static SpecialtyDTO toDto(Speciality entity) {
+    public static SpecialtyDTO toDto(Specialty entity) {
         if (entity == null) return null;
         SpecialtyDTO dto = new SpecialtyDTO();
         dto.setId(entity.getId());
@@ -18,8 +18,8 @@ public class SpecialityMapper {
         }
         return dto;
     }
-    public static Speciality toEntity(SpecialtyDTO dto, Department department) {
-        Speciality entity = new Speciality();
+    public static Specialty toEntity(SpecialtyDTO dto, Department department) {
+        Specialty entity = new Specialty();
         entity.setId(dto.getId());
         entity.setNom(dto.getNom());
         entity.setDescription(dto.getDescription());
