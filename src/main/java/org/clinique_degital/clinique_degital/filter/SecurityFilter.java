@@ -29,20 +29,20 @@ public class SecurityFilter implements Filter {
         User user = (User) session.getAttribute("user");
         String path = httpRequest.getRequestURI();
 
-        if(path.startsWith("/admin/") && user.getRole() != Role.ADMIN){
-            httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
+        if(path.contains("/admin/") && user.getRole() != Role.ADMIN){
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
         }
         if(path.startsWith("/patient/") && user.getRole() != Role.PATIENT){
-            httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
         }
         if(path.startsWith("/doctor/") && user.getRole() != Role.DOCTOR){
-            httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
         }
         if(path.startsWith("/staff/") && user.getRole() != Role.STAFF){
-            httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
+            httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");
             return;
         }
 
